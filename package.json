@@ -1,0 +1,85 @@
+{
+  "name": "txt-novel-format",
+  "displayName": "txt-novel-format",
+  "description": "test",
+  "version": "0.0.3",
+  "publisher": "CPFniliu",
+  "engines": {
+    "vscode": "^1.56.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.txtNovelFormat.combineLine",
+    "onCommand:extension.txtNovelFormat.wrapLine",
+    "onCommand:extension.txtNovelFormat.suitRow",
+    "onCommand:extension.txtNovelFormat.formatAll"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.txtNovelFormat.combineLine",
+        "title": "txtNovelFormat: combine line"
+      },
+      {
+        "command": "extension.txtNovelFormat.wrapLine",
+        "title": "txtNovelFormat: wrap line"
+      },
+      {
+        "command": "extension.txtNovelFormat.suitRow",
+        "title": "txtNovelFormat: suit row"
+      },
+      {
+        "command": "extension.txtNovelFormat.formatAll",
+        "title": "txtNovelFormat: format all"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceExtname == .txt",
+          "command": "extension.txtNovelFormat.combineLine",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceExtname == .txt",
+          "command": "extension.txtNovelFormat.wrapLine",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceExtname == .txt",
+          "command": "extension.txtNovelFormat.suitRow",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceExtname == .txt",
+          "command": "extension.txtNovelFormat.formatAll",
+          "group": "navigation"
+      }
+    ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.56.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "eslint": "^7.19.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  }
+}
