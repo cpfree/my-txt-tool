@@ -1,14 +1,16 @@
+// The module 'vscode' contains the VS Code extensibility API
+// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
+	
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "dirtxtformat" is now active!');
-	
-	let disposable1 = vscode.commands.registerTextEditorCommand('extension.txtNovelFormat.combineLine', (textEditor, edit) => {
+	console.log('Congratulations, your extension "my-txt-tool" is now active!');
+
+	let disposable1 = vscode.commands.registerTextEditorCommand('myTxtTool.combineLine', (textEditor, edit) => {
 		const selection = getSelectionOrCurrentLine(textEditor);
 		const sele = textEditor.document.getText(selection);
 		// 替换空换行符
@@ -19,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
 		);
 	});
 
-	let disposable2 = vscode.commands.registerTextEditorCommand('extension.txtNovelFormat.wrapLine', (textEditor, edit) => {
+	let disposable2 = vscode.commands.registerTextEditorCommand('myTxtTool.wrapLine', (textEditor, edit) => {
 		const selection = getSelectionOrCurrentLine(textEditor);
 		const sele = textEditor.document.getText(selection);
 		// 替换空换行符
@@ -30,10 +32,10 @@ export function activate(context: vscode.ExtensionContext) {
 		);
 	});
 
-	let disposable3 = vscode.commands.registerTextEditorCommand('extension.txtNovelFormat.formatAll', (textEditor, edit) => {
+	let disposable3 = vscode.commands.registerTextEditorCommand('myTxtTool.formatAll', (textEditor, edit) => {
 		const selection = getSelectionOrCurrentLine(textEditor);
 		const sele = textEditor.document.getText(selection);
-		// 替换空换行符
+		// 替换空换行符 
 		let translated = sele.replace(/\s*?\n\s*(?=\S)/g, '\r\n\r\n　　');
 		
 		textEditor.edit(edit =>
@@ -41,8 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
 		);
 	});
 
-
-	let disposable4 = vscode.commands.registerTextEditorCommand('extension.txtNovelFormat.suitRow', (textEditor, edit) => {
+	let disposable4 = vscode.commands.registerTextEditorCommand('myTxtTool.suitRow', (textEditor, edit) => {
 		const selection = getSelectionOrCurrentLine(textEditor);
 		const sele = textEditor.document.getText(selection);
 		const arr = sele.split(/\s*\n\s*/);
@@ -91,6 +92,63 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable2);
 	context.subscriptions.push(disposable3);
 	context.subscriptions.push(disposable4);
+
+   // 半角字符转换为全角字符(暂时仅限于逗号和句号), ', ' or ',' -> '，'
+   context.subscriptions.push(
+      vscode.commands.registerTextEditorCommand('myTxtTool.fullToHalf_corner', (textEditor, edit) => {
+         const selection = getSelectionOrCurrentLine(textEditor);
+         const sele = textEditor.document.getText(selection);
+         // 替换空换行符 
+         let translated = sele.replace(/，/g, ', ').replace(/。/g, '. ');
+         
+         textEditor.edit(edit =>
+            edit.replace(selection, translated)
+         );
+      })
+   );
+
+   // 半角字符转换为全角字符(暂时仅限于逗号和句号), ', ' or ',' -> '，'
+   context.subscriptions.push(
+      vscode.commands.registerTextEditorCommand('myTxtTool.halfToFull_corner', (textEditor, edit) => {
+         const selection = getSelectionOrCurrentLine(textEditor);
+         const sele = textEditor.document.getText(selection);
+         // 替换空换行符 
+         let translated = sele.replace(/, ?/g, '，').replace(/\. ?/g, '。');
+         
+         textEditor.edit(edit =>
+            edit.replace(selection, translated)
+         );
+      })
+   );
+
+   // 半角字符后面设置为一个空格, ', ' or ',' -> '，'
+   context.subscriptions.push(
+      vscode.commands.registerTextEditorCommand('myTxtTool.setOneSpaceAfterHalfCorner', (textEditor, edit) => {
+         const selection = getSelectionOrCurrentLine(textEditor);
+         const sele = textEditor.document.getText(selection);
+         // 替换空换行符 
+         let translated = sele.replace(/, */g, ', ').replace(/\. */g, ', ');
+         
+         textEditor.edit(edit =>
+            edit.replace(selection, translated)
+         );
+      })
+   );
+
+   // 半角字符后面去掉空格, ', ' or ',' -> '，'
+   context.subscriptions.push(
+      vscode.commands.registerTextEditorCommand('myTxtTool.clearSpaceAfterHalfCorner', (textEditor, edit) => {
+         const selection = getSelectionOrCurrentLine(textEditor);
+         const sele = textEditor.document.getText(selection);
+         // 替换空换行符 
+         let translated = sele.replace(/, */g, ',').replace(/\. */g, ',');
+         
+         textEditor.edit(edit =>
+            edit.replace(selection, translated)
+         );
+      })
+   );
+
 }
 
 // 获取选择的数据
