@@ -75,27 +75,12 @@
                "group": "navigation"
             },
             {
-               "when": "resourceExtname == .txt",
-               "command": "myTxtTool.formatAll",
-               "group": "navigation"
-            },
-            {
-               "when": "resourceExtname == .txt",
-               "command": "myTxtTool.fullToHalf_corner",
-               "group": "navigation"
-            },
-            {
-               "when": "resourceExtname == .txt",
-               "command": "myTxtTool.halfToFull_corner",
-               "group": "navigation"
-            },
-            {
-               "when": "resourceExtname == .txt",
+               "when": "resourceExtname == .md",
                "command": "myTxtTool.setOneSpaceAfterHalfCorner",
                "group": "navigation"
             },
             {
-               "when": "resourceExtname == .txt",
+               "when": "resourceExtname == .md",
                "command": "myTxtTool.clearSpaceAfterHalfCorner",
                "group": "navigation"
             }
