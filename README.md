@@ -7,6 +7,13 @@
 >   ...
 >   该插件主要是为方便个人快捷处理遇到的一些常需要处理的文本而开发.
 
+---
+
+## repo
+
+- <https://github.com/cpfree/my-txt-tool/>
+- <https://gitee.com/cpfree/my-txt-tool/>
+
 ## 功能清单如下
 
 | 命令                                    | 标签                                             |
@@ -33,9 +40,9 @@
    源文本
 
    ```md
-   接触到了 vscode 插件开发
-   接触到了 vscode 插件开发
-   接触到了 vscode 插件开发
+   接触到了vscode 插件开发
+   接触到了vscode   插件开发
+   接触到了  vscode  插件开发
    接触到了 vscode 插件开发
    ```
 
@@ -55,9 +62,10 @@
    源文本
 
    ```md
-   接触到了 vscode 插件开发
-   接触到了`vscode 插件开发 接触到了vscode` 插件开发
-   接触到了 vscode 插件开发
+   接触到了vscode插件开发
+   接触到了`vscode 插件开发
+   接触到了vscode` 插件开发
+   接触到了  vscode 插件开发
    接触到了 vscode 插件开发
    接触到了 vs code 插件开发
    接触到了 `vs` `code` 插件开发
@@ -67,10 +75,11 @@
    处理后文本
 
    ```md
-   接触到了 vscode 插件开发
-   接触到了`vscode 插件开发 接触到了vscode` 插件开发
-   接触到了 vscode 插件开发
-   接触到了 vscode 插件开发
+   接触到了 `vscode` 插件开发
+   接触到了`vscode 插件开发
+   接触到了vscode` 插件开发
+   接触到了 `vscode` 插件开发
+   接触到了 `vscode` 插件开发
    接触到了 vs code 插件开发
    接触到了 `vs` `code` 插件开发
    接触到了 `vs code`插件开发
@@ -143,7 +152,7 @@
    处理后文本
 
    ```md
-   VSCode 是微软出的一款轻量级代码编辑器,免费而且功能强大.  
+   VSCode 是微软出的一款轻量级代码编辑器, 免费而且功能强大.  
    VSCode 是微软出的一款轻量级代码编辑器, 免费而且功能强大,  
    VSCode 是微软出的一款轻量级代码编辑器. 免费而且功能强大. ,
    VSCode 是微软出的一款轻量级代码编辑器. . 免费而且功能强大. .

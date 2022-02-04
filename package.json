@@ -2,7 +2,7 @@
    "name": "my-txt-tool",
    "displayName": "my-txt-tool",
    "description": "Used for various processing of text",
-   "version": "0.1.0",
+   "version": "0.1.1",
    "publisher": "cpf",
    "repository": "git@github.com:cpfree/my-txt-tool.git",
    "engines": {

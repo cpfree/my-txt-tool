@@ -29,3 +29,9 @@
    | myTxtTool.insertBackquoteBetweenEnAndCn | txt-tool: 中文之间的单个单词两边加上空格和反斜杠 |
    | myTxtTool.suitRow                       | txt-tool: suitRow                                |
    | myTxtTool.wrapLine                      | txt-tool: wrap line                              |
+
+## v0.1.1 版本
+
+修改了`半角字符后设置一个空格`功能的bug
+
+

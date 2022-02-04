@@ -100,7 +100,7 @@ export function activate(context: vscode.ExtensionContext) {
          const sele = textEditor.document.getText(selection);
          // 替换空换行符 
          let translated = sele.replace(/，/g, ', ').replace(/。/g, '. ');
-         
+
          textEditor.edit(edit =>
             edit.replace(selection, translated)
          );
@@ -114,7 +114,7 @@ export function activate(context: vscode.ExtensionContext) {
          const sele = textEditor.document.getText(selection);
          // 替换空换行符 
          let translated = sele.replace(/, ?/g, '，').replace(/\. ?/g, '。');
-         
+
          textEditor.edit(edit =>
             edit.replace(selection, translated)
          );
@@ -127,10 +127,10 @@ export function activate(context: vscode.ExtensionContext) {
          const selection = getSelectionOrCurrentLine(textEditor);
          const sele = textEditor.document.getText(selection);
          // 替换空换行符 
-         let translated = sele.replace(/, +(?=\S)/g, ', ')
+         let translated = sele.replace(/, *(?=\S)/g, ', ')
                // 开头不能是数字标记行,  不能是一行末尾
                .replace(/(?<!(\n|^)\s*\d{1,5})\. *(?=\S)/g, '. ');
-         
+
          textEditor.edit(edit =>
             edit.replace(selection, translated)
          );
@@ -176,7 +176,7 @@ export function activate(context: vscode.ExtensionContext) {
          // \b 匹配单词边界
          // 中文字符和英文字符之间设置一个空格 & 英文字符和中文字符之间设置一个空格
          let translated = sele.replace(/(?<=[\u4e00-\u9fa5])\s*(\w+)\s*(?=[\u4e00-\u9fa5])/g, ' `$1` ');
-         
+
          textEditor.edit(edit =>
             edit.replace(selection, translated)
          );
@@ -187,27 +187,25 @@ export function activate(context: vscode.ExtensionContext) {
 
 // 获取选择的数据
 function getSelectionOrCurrentLine(textEditor: vscode.TextEditor) {
-	let selection:vscode.Range = textEditor.selection;
- 
-	const
-	  start = selection.start,
-	  end = selection.end;
- 
-	if (start.line === end.line && start.character === end.character) {
-	  selection = new vscode.Range(start.line, 0, start.line, Infinity);
- 
-	  const line = textEditor.document.getText(selection);
- 
-	  // 默认当前行
-	  //   selection = new vscode.Range(start.line, 0, start.line, line.length);
-	  
-	  // 默认整篇文章 
-	  selection = new vscode.Range(0, 0, textEditor.document.lineCount, 0);
+   let selection:vscode.Range = textEditor.selection;
 
-	}
- 
-	return selection;
- }
+   const start = selection.start;
+   const end = selection.end;
+
+   if (start.line === end.line && start.character === end.character) {
+      selection = new vscode.Range(start.line, 0, start.line, Infinity);
+
+      const line = textEditor.document.getText(selection);
+
+      // 默认当前行
+      //   selection = new vscode.Range(start.line, 0, start.line, line.length);
+
+      // 默认整篇文章 
+      selection = new vscode.Range(0, 0, textEditor.document.lineCount, 0);
+   }
+
+   return selection;
+}
 
 // this method is called when your extension is deactivated
 export function deactivate() {}
