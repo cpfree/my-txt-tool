@@ -47,8 +47,8 @@
    接触到了 vscode 插件开发
    接触到了 vscode 插件开发
    ```
-
-   ![中英文之间设置一个空格](https://gitee.com/cpfree/my-txt-tool/raw/master/.doc/image/oneSpaceBetweenEnAndCn.gif)
+   
+   ![中英文之间设置一个空格](https://raw.githubusercontent.com/cpfree/my-txt-tool/main/.doc/image/oneSpaceBetweenEnAndCn.gif)
 
 2. txt-tool: 中文之间的单个单词两边加上空格和反斜杠
 
@@ -76,7 +76,7 @@
    接触到了 `vs code`插件开发
    ```
 
-   ![中文之间的单个单词两边加上空格和反斜杠](https://gitee.com/cpfree/my-txt-tool/raw/master/.doc/image/insertBackquoteBetweenEnAndCn.gif)
+   ![中文之间的单个单词两边加上空格和反斜杠](https://raw.githubusercontent.com/cpfree/my-txt-tool/main/.doc/image/insertBackquoteBetweenEnAndCn.gif)
 
 3. txt-tool: 半角字符 -> 全角字符
 
@@ -103,7 +103,7 @@
    VSCode 是微软出的一款轻量级代码编辑器， 免费而且功能强大。
    ```
 
-   ![txt-tool: 半角字符 -> 全角字符](https://gitee.com/cpfree/my-txt-tool/raw/master/.doc/image/halfToFull_corner.gif)
+   ![txt-tool: 半角字符 -> 全角字符](https://raw.githubusercontent.com/cpfree/my-txt-tool/main/.doc/image/halfToFull_corner.gif)
 
 4. txt-tool: 全角字符 -> 半角字符
 
@@ -127,7 +127,7 @@
    VSCode 是微软出的一款轻量级代码编辑器, 免费而且功能强大.
    ```
 
-   ![中英文之间设置一个空格](https://gitee.com/cpfree/my-txt-tool/raw/master/.doc/image/fullToHalf_corner.gif)
+   ![中英文之间设置一个空格](https://raw.githubusercontent.com/cpfree/my-txt-tool/main/.doc/image/fullToHalf_corner.gif)
 
 5. txt-tool: 半角字符后设置一个空格
 
@@ -149,7 +149,7 @@
    VSCode 是微软出的一款轻量级代码编辑器. . 免费而且功能强大. .
    ```
 
-   ![半角字符后设置一个空格](https://gitee.com/cpfree/my-txt-tool/raw/master/.doc/image/setOneSpaceAfterHalfCorner.gif)
+   ![半角字符后设置一个空格](https://raw.githubusercontent.com/cpfree/my-txt-tool/main/.doc/image/setOneSpaceAfterHalfCorner.gif)
 
 6. txt-tool: 半角字符后清除空格
 
@@ -171,7 +171,7 @@
    VSCode 是微软出的一款轻量级代码编辑器..免费而且功能强大..
    ```
 
-   ![半角字符后清除空格](https://gitee.com/cpfree/my-txt-tool/raw/master/.doc/image/clearSpaceAfterHalfCorner.gif)
+   ![半角字符后清除空格](https://raw.githubusercontent.com/cpfree/my-txt-tool/main/.doc/image/clearSpaceAfterHalfCorner.gif)
 
 ### txt 文本处理
 
@@ -202,7 +202,7 @@
    微服务在管理人员和项目负责人中至少与在开发人员中一样受欢迎。这是微服务的较不寻常的特征之一，因为架构热情通常是为实际工程师保留的。这样做的原因是微服务更好地反映了许多业务主管想要组建和运行其团队以及开发流程的方式。换句话说，微服务是一种架构模型，可以更好地促进所需的运营模型。
    ```
 
-   ![wrap line](https://gitee.com/cpfree/my-txt-tool/raw/master/.doc/image/wrapline.gif)
+   ![wrap line](https://raw.githubusercontent.com/cpfree/my-txt-tool/main/.doc/image/wrapline.gif)
 
 2. txt-tool: suitRow
 
@@ -236,4 +236,4 @@
    这是微服务的较不寻常的特征之一，因为架构热情通常是为实际工程师保留的。这样做的原因是微服务更好地反映了许多业务主管想要组建和运行其团队以及开发流程的方式。换句话说，微服务是一种架构模型，可以更好地促进所需的运营模型。
    ```
 
-   ![suitRow](https://gitee.com/cpfree/my-txt-tool/raw/master/.doc/image/suitRow.gif)
+   ![suitRow](https://raw.githubusercontent.com/cpfree/my-txt-tool/main/.doc/image/suitRow.gif)

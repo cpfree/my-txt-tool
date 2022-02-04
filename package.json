@@ -4,7 +4,7 @@
    "description": "Used for various processing of text",
    "version": "0.1.0",
    "publisher": "cpf",
-   "repository": "git@github.com:sinjar-chen/txt-novel-format.git",
+   "repository": "git@github.com:cpfree/my-txt-tool.git",
    "engines": {
       "vscode": "^1.63.0"
    },
