@@ -75,7 +75,7 @@ export function activate(context: vscode.ExtensionContext) {
 						vscode.window.showInformationMessage('数学期望被改为了' + msg);
 					}
 					// 生成正则表达式
-					var re = new RegExp('(?<=\\S{' + ex + ',}[^\\s。！」”(。”)(。」)])\\s*\\n+\\s*', 'g');
+					var re = new RegExp('(?<=[^\\n]{' + ex + ',}[^\\s。！」”(。”)(。」)])\\s*\\n+\\s*', 'g');
 					// 替换空换行符
 					let translated = sele.replace(re, '');
 			 
@@ -121,13 +121,15 @@ export function activate(context: vscode.ExtensionContext) {
       })
    );
 
-   // 半角字符后面设置为一个空格, ', ' or ',' -> '，'
+   // 半角字符后面设置为一个空格, 除了行结尾之外 ===> ', ' or ',' -> '，'
    context.subscriptions.push(
       vscode.commands.registerTextEditorCommand('myTxtTool.setOneSpaceAfterHalfCorner', (textEditor, edit) => {
          const selection = getSelectionOrCurrentLine(textEditor);
          const sele = textEditor.document.getText(selection);
          // 替换空换行符 
-         let translated = sele.replace(/, */g, ', ').replace(/\. */g, ', ');
+         let translated = sele.replace(/, +(?=\S)/g, ', ')
+               // 开头不能是数字标记行,  不能是一行末尾
+               .replace(/(?<!(\n|^)\s*\d{1,5})\. *(?=\S)/g, '. ');
          
          textEditor.edit(edit =>
             edit.replace(selection, translated)
@@ -135,13 +137,45 @@ export function activate(context: vscode.ExtensionContext) {
       })
    );
 
-   // 半角字符后面去掉空格, ', ' or ',' -> '，'
+   // 半角字符后面清除空格, 除了行开头的行标记 ===> ', ' or ',' -> '，'
    context.subscriptions.push(
       vscode.commands.registerTextEditorCommand('myTxtTool.clearSpaceAfterHalfCorner', (textEditor, edit) => {
          const selection = getSelectionOrCurrentLine(textEditor);
          const sele = textEditor.document.getText(selection);
          // 替换空换行符 
-         let translated = sele.replace(/, */g, ',').replace(/\. */g, ',');
+         let translated = sele.replace(/, */g, ',')
+               // 去除 . 后面的空格, 约束为 . 不能是开头的行标符号.
+               .replace(/(?<!(\n|^)\s*\d{1,4})\. */g, '.');
+         
+         textEditor.edit(edit =>
+            edit.replace(selection, translated)
+         );
+      })
+   );
+
+   // 中英文中间设置空格
+   context.subscriptions.push(
+      vscode.commands.registerTextEditorCommand('myTxtTool.oneSpaceBetweenEnAndCn', (textEditor, edit) => {
+         const selection = getSelectionOrCurrentLine(textEditor);
+         const sele = textEditor.document.getText(selection);
+         // \b 匹配单词边界
+         // 中文字符和英文字符之间设置一个空格 & 英文字符和中文字符之间设置一个空格
+         let translated = sele.replace(/((?<=[\u4e00-\u9fa5])\s*\b)|(\b\s*(?=[\u4e00-\u9fa5]))/g, ' ');
+         
+         textEditor.edit(edit =>
+            edit.replace(selection, translated)
+         );
+      })
+   );
+
+   // 中文之间的单个英文前后添加空格和反引号 "`"
+   context.subscriptions.push(
+      vscode.commands.registerTextEditorCommand('myTxtTool.insertBackquoteBetweenEnAndCn', (textEditor, edit) => {
+         const selection = getSelectionOrCurrentLine(textEditor);
+         const sele = textEditor.document.getText(selection);
+         // \b 匹配单词边界
+         // 中文字符和英文字符之间设置一个空格 & 英文字符和中文字符之间设置一个空格
+         let translated = sele.replace(/(?<=[\u4e00-\u9fa5])\s*(\w+)\s*(?=[\u4e00-\u9fa5])/g, ' `$1` ');
          
          textEditor.edit(edit =>
             edit.replace(selection, translated)

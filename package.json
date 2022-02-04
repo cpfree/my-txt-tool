@@ -2,7 +2,7 @@
    "name": "my-txt-tool",
    "displayName": "my-txt-tool",
    "description": "Used for various processing of text",
-   "version": "0.0.4",
+   "version": "0.1.0",
    "publisher": "cpf",
    "repository": "git@github.com:sinjar-chen/txt-novel-format.git",
    "engines": {
@@ -19,7 +19,9 @@
       "onCommand:myTxtTool.fullToHalf_corner",
       "onCommand:myTxtTool.halfToFull_corner",
       "onCommand:myTxtTool.setOneSpaceAfterHalfCorner",
-      "onCommand:myTxtTool.clearSpaceAfterHalfCorner"
+      "onCommand:myTxtTool.clearSpaceAfterHalfCorner",
+      "onCommand:myTxtTool.oneSpaceBetweenEnAndCn",
+      "onCommand:myTxtTool.insertBackquoteBetweenEnAndCn"
    ],
    "main": "./out/extension.js",
    "contributes": {
@@ -50,25 +52,23 @@
          },
          {
             "command": "myTxtTool.setOneSpaceAfterHalfCorner",
-            "title": "txt-tool: 半角字符后保留一个空格"
+            "title": "txt-tool: 半角字符后设置一个空格"
          },
          {
             "command": "myTxtTool.clearSpaceAfterHalfCorner",
             "title": "txt-tool: 半角字符后清除空格"
+         },
+         {
+            "command": "myTxtTool.oneSpaceBetweenEnAndCn",
+            "title": "txt-tool: 中英文之间设置一个空格"
+         },
+         {
+            "command": "myTxtTool.insertBackquoteBetweenEnAndCn",
+            "title": "txt-tool: 中文之间的单个单词两边加上空格和反斜杠"
          }
       ],
       "menus": {
          "editor/title": [
-            {
-               "when": "resourceExtname == .txt",
-               "command": "myTxtTool.combineLine",
-               "group": "navigation"
-            },
-            {
-               "when": "resourceExtname == .txt",
-               "command": "myTxtTool.wrapLine",
-               "group": "navigation"
-            },
             {
                "when": "resourceExtname == .txt",
                "command": "myTxtTool.suitRow",
