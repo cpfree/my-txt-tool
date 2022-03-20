@@ -113,7 +113,9 @@ export function activate(context: vscode.ExtensionContext) {
          const selection = getSelectionOrCurrentLine(textEditor);
          const sele = textEditor.document.getText(selection);
          // 替换空换行符 
-         let translated = sele.replace(/, ?/g, '，').replace(/\. ?/g, '。');
+         let translated = sele.replace(/, ?/g, '，')
+               // 开头不能是数字标记行,  不能是一行末尾
+               .replace(/(?<!(\n|^)\s*\d{1,5})\. ?/g, '。');
 
          textEditor.edit(edit =>
             edit.replace(selection, translated)
