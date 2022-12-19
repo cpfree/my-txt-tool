@@ -2,10 +2,15 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
+var workspace = vscode.workspace;
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	
+   // init variables
+   var workspaceState = context.workspaceState;
+
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "my-txt-tool" is now active!');
@@ -35,8 +40,10 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable3 = vscode.commands.registerTextEditorCommand('myTxtTool.formatAll', (textEditor, edit) => {
 		const selection = getSelectionOrCurrentLine(textEditor);
 		const sele = textEditor.document.getText(selection);
+      let setting:vscode.WorkspaceConfiguration = workspace.getConfiguration('mytexttool')
+      let formatRowPrefix:String|undefined = setting.get('formatRowPrefix', "　　");
 		// 替换空换行符 
-		let translated = sele.replace(/\s*?\n\s*(?=\S)/g, '\r\n\r\n　　');
+		let translated = sele.replace(/\s*?\n\s*(?=\S)/g, '\r\n' + formatRowPrefix);
 		
 		textEditor.edit(edit =>
 			edit.replace(selection, translated)

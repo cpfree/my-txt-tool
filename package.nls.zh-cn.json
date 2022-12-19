@@ -1,0 +1,7 @@
+{
+   "config.formatRowPrefix.description": "触发 format all 时每行的前缀",
+   "config.formatRowPrefix.enumDescriptions.threeEnSpaceAndRow": "使用的 \\r\\n 加三个英文空格: `\\r\\n`&ensp;&ensp;&ensp;,\n\n```markdown\n\n   第一行内容...\n\n   第二行内容...\n```",
+   "config.formatRowPrefix.enumDescriptions.twoCnSpaceAndRow": "使用的 \\r\\n 加两个中文空格: `\\r\\n　　`,\n\n```markdown\n\n　　第一行内容...\n\n　　第二行内容...\n```",
+   "config.formatRowPrefix.enumDescriptions.threeEnSpace": "使用三个英文空格: &ensp;&ensp;&ensp;,\n\n```markdown\n   第一行内容...\n   第二行内容...\n```",
+   "config.formatRowPrefix.enumDescriptions.twoCnSpace": "使用两个中文空格: `　　`,\n\n```markdown\n   第一行内容...\n   第二行内容...\n```"
+}

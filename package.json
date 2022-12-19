@@ -70,7 +70,17 @@
       "menus": {
          "editor/title": [
             {
-               "when": "resourceExtname == .txt",
+               "when": "resourceExtname == .txt && config.mytexttool.enableCombineLine",
+               "command": "myTxtTool.combineLine",
+               "group": "navigation"
+            },
+            {
+               "when": "resourceExtname == .txt && config.mytexttool.enableWrapLine",
+               "command": "myTxtTool.wrapLine",
+               "group": "navigation"
+            },
+            {
+               "when": "resourceExtname == .txt && config.mytexttool.enableSuitRow",
                "command": "myTxtTool.suitRow",
                "group": "navigation"
             },
@@ -85,6 +95,44 @@
                "group": "navigation"
             }
          ]
+      },
+      "configuration": {
+         "type": "object",
+         "title": "my text tool",
+         "properties": {
+            "mytexttool.enableCombineLine": {
+               "type": "boolean",
+               "default": true,
+               "description": "Enable combine line"
+            },
+            "mytexttool.enableWrapLine": {
+               "type": "boolean",
+               "default": true,
+               "description": "Enable wrap line"
+            },
+            "mytexttool.enableSuitRow": {
+               "type": "boolean",
+               "default": true,
+               "description": "Enable suit row"
+            },
+            "mytexttool.formatRowPrefix": {
+               "type": "string",
+               "enum": [
+                  "\r\n   ",
+                  "\r\n　　",
+                  "   ",
+                  "　　"
+               ],
+               "markdownEnumDescriptions": [
+                  "%config.formatRowPrefix.enumDescriptions.threeEnSpaceAndRow%",
+                  "%config.formatRowPrefix.enumDescriptions.twoCnSpaceAndRow%",
+                  "%config.formatRowPrefix.enumDescriptions.threeEnSpace%",
+                  "%config.formatRowPrefix.enumDescriptions.twoCnSpace%"
+               ],
+               "default": "\r\n   ",
+               "description": "%config.formatRowPrefix.description%"
+            }
+         }
       }
    },
    "scripts": {
