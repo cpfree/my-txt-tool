@@ -9,6 +9,63 @@
 
 ---
 
+### mytexttool.actions
+
+在setting 里面可以配置 mytexttool.actions
+
+默认配置如下
+
+```json
+{
+   "enable": true,
+   "label": "replace(\\\\, \\).replace(\\\", \") ",
+   "actions": [
+      {
+         "type": "replace",
+         "expression": "\\\\\\\\",
+         "param1": "\\"
+      },
+      {
+         "type": "replace",
+         "expression": "\\\\\\\"",
+         "param1": "\""
+      }
+   ]
+},
+{
+   "enable": true,
+   "label": "matches ipv4",
+   "actions": [
+      {
+         "type": "matches",
+         "expression": "((25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))",
+         "param1": ""
+      }
+   ]
+}
+```
+
+含义API 如下
+
+```ts
+interface TxtAction {
+   // 是否激活
+   enable: boolean;
+   // 会被映射到 QuickPickItem 的 label, 作为顶部 下拉框的文本
+   label: string;
+   actions: Array<TxtSubAction>;
+}
+interface TxtSubAction {
+   // replaceString 表示替换字符串 expression -> param1
+   // replace 表示正则替换, 第一个为正则表达式
+   // matches 表示匹配选中的文本, 并按行隔开
+   // eval 将会把 expression 转译为可执行的脚本, 在脚本中 可以直接使用 text 来引用选中的文本, 这个脚本最后最好返回一个string
+   type: 'replaceString' | 'replace' | 'matches' | 'eval';
+   expression: string;
+   param1: string;
+}
+```
+
 ## repo
 
 - <https://github.com/cpfree/my-txt-tool/>

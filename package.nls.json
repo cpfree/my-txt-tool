@@ -3,5 +3,7 @@
    "config.formatRowPrefix.enumDescriptions.threeEnSpaceAndRow": "use \\r\\n and three half-angle Spaces: `\\r\\n`&ensp;&ensp;&ensp;,\n\n```markdown\n\n   The first row...\n\n   The second row...\n```",
    "config.formatRowPrefix.enumDescriptions.twoCnSpaceAndRow": "use \\r\\n and two full-angle Spaces: `\\r\\n　　`,\n\n```markdown\n\n　　The first row...\n\n　　The second row...\n```",
    "config.formatRowPrefix.enumDescriptions.threeEnSpace": "use three half-angle Spaces: &ensp;&ensp;&ensp;,\n\n```markdown\n   The first row...\n   The second row...\n```",
-   "config.formatRowPrefix.enumDescriptions.twoCnSpace": "use two full-angle Spaces: `　　`,\n\n```markdown\n   The first row...\n   The second row...\n```"
+   "config.formatRowPrefix.enumDescriptions.twoCnSpace": "use two full-angle Spaces: `　　`,\n\n```markdown\n   The first row...\n   The second row...\n```",
+   "commands.customTxtActions.description": "customTxtActions-xxx",
+   "config.customTxtActions.description": "please refer to README.md of the plugin"
 }

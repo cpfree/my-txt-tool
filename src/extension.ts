@@ -192,6 +192,64 @@ export function activate(context: vscode.ExtensionContext) {
       })
    );
 
+   // 定制字符串 "`"
+   context.subscriptions.push(
+      vscode.commands.registerTextEditorCommand('myTxtTool.customTxtActions', (textEditor, edit) => {
+         const selection = getSelectionOrCurrentLine(textEditor);
+         const sele = textEditor.document.getText(selection);
+         
+         let setting:vscode.WorkspaceConfiguration = workspace.getConfiguration('mytexttool');
+         let costomArr:Array<TxtAction> = setting.get('actions', []);
+
+         vscode.window.showQuickPick(costomArr)
+            .then(function(it: TxtAction | undefined) {
+               if (it) {
+                  let actionArr:Array<TxtSubAction> = it.actions;
+                  let translated:string = sele;
+                  actionArr.forEach(it => {
+                     if (it.type === 'replaceString') {
+                        translated = translated.replace(it.expression, it.param1);
+                     } else if (it.type === 'replace') {
+                        let reg = new RegExp(it.expression, 'g');
+                        translated = translated.replace(reg, it.param1);
+                     } else if (it.type === 'matches') {
+                        let reg = new RegExp(it.expression, 'g');
+                        let ans = [];
+                        let matched = null;
+                        while ((matched = reg.exec(translated)) !== null) {
+                            ans.push(matched[0]);
+                        }
+                        translated = '\n\n' + ans.join('\n') + '\n\n';
+                     } else if (it.type === 'eval') {
+                        let text = translated;
+                        translated = eval(it.expression)
+                     }
+                  })
+                  textEditor.edit(edit =>
+                     edit.replace(selection, translated)
+                  );
+               }
+            });
+      })
+   );
+}
+
+interface TxtAction {
+   // 是否激活
+   enable: boolean;
+   // 会被映射到 QuickPickItem 的 label, 作为顶部 下拉框的文本
+   label: string;
+   actions: Array<TxtSubAction>;
+}
+
+interface TxtSubAction {
+   // replaceString 表示替换字符串 expression -> param1
+   // replace 表示正则替换, 第一个为正则表达式
+   // matches 表示匹配选中的文本, 并按行隔开
+   // eval 将会把 expression 转译为可执行的脚本, 在脚本中 可以直接使用 text 来引用选中的文本, 这个脚本最后最好返回一个string
+   type: 'replaceString' | 'replace' | 'matches' | 'eval';
+   expression: string;
+   param1: string;
 }
 
 // 获取选择的数据
