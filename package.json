@@ -72,7 +72,52 @@
             "title": "%commands.customTxtActions.description%"
          }
       ],
+		"submenus": [
+			{
+				"id": "myTxtTool.editor.context",
+				"label": "my-text-tools"
+			}
+		],
       "menus": {
+         "myTxtTool.editor.context": [
+            {
+               "when": "resourceExtname == .txt && config.mytexttool.enableCombineLine",
+               "command": "myTxtTool.combineLine",
+               "group": "myTxtToolGroup"
+            },
+            {
+               "when": "resourceExtname == .txt && config.mytexttool.enableWrapLine",
+               "command": "myTxtTool.wrapLine",
+               "group": "myTxtToolGroup"
+            },
+            {
+               "when": "resourceExtname == .txt && config.mytexttool.enableSuitRow",
+               "command": "myTxtTool.suitRow",
+               "group": "myTxtToolGroup"
+            },
+            {
+               "when": "resourceExtname == .md || resourceExtname == .txt",
+               "command": "myTxtTool.setOneSpaceAfterHalfCorner",
+               "group": "myTxtToolGroup"
+            },
+            {
+               "when": "resourceExtname == .md || resourceExtname == .txt",
+               "command": "myTxtTool.clearSpaceAfterHalfCorner",
+               "group": "myTxtToolGroup"
+            },
+            {
+               "when": "resourceExtname == .md || resourceExtname == .txt",
+               "alt": "markdown.showPreviewToSide",
+               "command": "myTxtTool.customTxtActions",
+               "group": "myTxtToolGroup"
+            }
+         ],
+         "editor/context": [
+				{
+					"submenu": "myTxtTool.editor.context",
+					"group": "myTxtToolGroup"
+				}
+         ],
          "editor/title": [
             {
                "when": "resourceExtname == .txt && config.mytexttool.enableCombineLine",
@@ -179,7 +224,15 @@
                ]
             }
          }
-      }
+      },
+      "keybindings": [
+         {
+            "command": "myTxtTool.customTxtActions",
+            "key": "ctrl+shift+I",
+            "mac": "ctrl+shift+I",
+            "when": "editorTextFocus"
+         }
+      ]
    },
    "scripts": {
       "vscode:prepublish": "npm run compile",
