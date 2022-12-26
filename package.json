@@ -2,7 +2,7 @@
    "name": "my-txt-tool",
    "displayName": "my-txt-tool",
    "description": "Used for various processing of text",
-   "version": "0.2.0",
+   "version": "0.2.1",
    "publisher": "cpf",
    "repository": "git@github.com:cpfree/my-txt-tool.git",
    "engines": {
@@ -16,17 +16,19 @@
       "onCommand:myTxtTool.wrapLine",
       "onCommand:myTxtTool.suitRow",
       "onCommand:myTxtTool.formatAll",
-      "onCommand:myTxtTool.fullToHalf_corner",
-      "onCommand:myTxtTool.halfToFull_corner",
-      "onCommand:myTxtTool.setOneSpaceAfterHalfCorner",
-      "onCommand:myTxtTool.clearSpaceAfterHalfCorner",
-      "onCommand:myTxtTool.oneSpaceBetweenEnAndCn",
-      "onCommand:myTxtTool.insertBackquoteBetweenEnAndCn",
       "onCommand:myTxtTool.customTxtActions"
    ],
    "main": "./out/extension.js",
    "contributes": {
       "commands": [
+         {
+            "command": "myTxtTool.customTxtActions",
+            "title": "%commands.customTxtActions.description%"
+         },
+         {
+            "command": "myTxtTool.formatAll",
+            "title": "txt-tool: format all"
+         },
          {
             "command": "myTxtTool.combineLine",
             "title": "txt-tool: combine line"
@@ -38,38 +40,6 @@
          {
             "command": "myTxtTool.suitRow",
             "title": "txt-tool: suit row"
-         },
-         {
-            "command": "myTxtTool.formatAll",
-            "title": "txt-tool: format all"
-         },
-         {
-            "command": "myTxtTool.fullToHalf_corner",
-            "title": "txt-tool: 全角字符 -> 半角字符"
-         },
-         {
-            "command": "myTxtTool.halfToFull_corner",
-            "title": "txt-tool: 半角字符 -> 全角字符"
-         },
-         {
-            "command": "myTxtTool.setOneSpaceAfterHalfCorner",
-            "title": "txt-tool: 半角字符后设置一个空格"
-         },
-         {
-            "command": "myTxtTool.clearSpaceAfterHalfCorner",
-            "title": "txt-tool: 半角字符后清除空格"
-         },
-         {
-            "command": "myTxtTool.oneSpaceBetweenEnAndCn",
-            "title": "txt-tool: 中英文之间设置一个空格"
-         },
-         {
-            "command": "myTxtTool.insertBackquoteBetweenEnAndCn",
-            "title": "txt-tool: 中文之间的单个单词两边加上空格和反斜杠"
-         },
-         {
-            "command": "myTxtTool.customTxtActions",
-            "title": "%commands.customTxtActions.description%"
          }
       ],
 		"submenus": [
@@ -81,6 +51,17 @@
       "menus": {
          "myTxtTool.editor.context": [
             {
+               "when": "resourceExtname == .md || resourceExtname == .txt",
+               "alt": "markdown.showPreviewToSide",
+               "command": "myTxtTool.customTxtActions",
+               "group": "myTxtToolGroup"
+            },
+            {
+               "when": "resourceExtname == .md || resourceExtname == .txt",
+               "command": "myTxtTool.formatAll",
+               "group": "myTxtToolGroup"
+            },
+            {
                "when": "resourceExtname == .txt && config.mytexttool.enableCombineLine",
                "command": "myTxtTool.combineLine",
                "group": "myTxtToolGroup"
@@ -93,22 +74,6 @@
             {
                "when": "resourceExtname == .txt && config.mytexttool.enableSuitRow",
                "command": "myTxtTool.suitRow",
-               "group": "myTxtToolGroup"
-            },
-            {
-               "when": "resourceExtname == .md || resourceExtname == .txt",
-               "command": "myTxtTool.setOneSpaceAfterHalfCorner",
-               "group": "myTxtToolGroup"
-            },
-            {
-               "when": "resourceExtname == .md || resourceExtname == .txt",
-               "command": "myTxtTool.clearSpaceAfterHalfCorner",
-               "group": "myTxtToolGroup"
-            },
-            {
-               "when": "resourceExtname == .md || resourceExtname == .txt",
-               "alt": "markdown.showPreviewToSide",
-               "command": "myTxtTool.customTxtActions",
                "group": "myTxtToolGroup"
             }
          ],
@@ -120,34 +85,30 @@
          ],
          "editor/title": [
             {
+               "when": "resourceExtname == .md || resourceExtname == .txt",
+               "alt": "markdown.showPreviewToSide",
+               "command": "myTxtTool.customTxtActions",
+               "group": "myTxtToolGroup"
+            },
+            {
+               "when": "resourceExtname == .md || resourceExtname == .txt",
+               "command": "myTxtTool.formatAll",
+               "group": "myTxtToolGroup"
+            },
+            {
                "when": "resourceExtname == .txt && config.mytexttool.enableCombineLine",
                "command": "myTxtTool.combineLine",
-               "group": "navigation"
+               "group": "myTxtToolGroup"
             },
             {
                "when": "resourceExtname == .txt && config.mytexttool.enableWrapLine",
                "command": "myTxtTool.wrapLine",
-               "group": "navigation"
+               "group": "myTxtToolGroup"
             },
             {
                "when": "resourceExtname == .txt && config.mytexttool.enableSuitRow",
                "command": "myTxtTool.suitRow",
-               "group": "navigation"
-            },
-            {
-               "when": "resourceExtname == .md",
-               "command": "myTxtTool.setOneSpaceAfterHalfCorner",
-               "group": "navigation"
-            },
-            {
-               "when": "resourceExtname == .md",
-               "command": "myTxtTool.clearSpaceAfterHalfCorner",
-               "group": "navigation"
-            },
-            {
-               "when": "resourceExtname == .md",
-               "command": "myTxtTool.customTxtActions",
-               "group": "navigation"
+               "group": "myTxtToolGroup"
             }
          ]
       },
@@ -197,6 +158,7 @@
                   {
                      "enable": true,
                      "label": "replace(\\\\, \\).replace(\\\", \") ",
+                     "description": "降级转换字符串",
                      "actions": [
                         {
                            "type": "replace",
@@ -213,11 +175,104 @@
                   {
                      "enable": true,
                      "label": "matches ipv4",
+                     "description": "匹配 ipv4",
                      "actions": [
                         {
                            "type": "matches",
                            "expression": "((25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))",
                            "param1": ""
+                        }
+                     ]
+                  },
+                  {
+                     "enable": true,
+                     "label": "full corner to half corner",
+                     "description": "全角字符转换为半角字符(暂时仅限于逗号和句号), ', ' or ',' -> '，'",
+                     "actions": [
+                        {
+                           "type": "replaceString",
+                           "expression": "，",
+                           "param1": ", "
+                        },
+                        {
+                           "type": "replaceString",
+                           "expression": "。",
+                           "param1": ". "
+                        }
+                     ]
+                  },
+                  {
+                     "enable": true,
+                     "label": "half corner to full corner",
+                     "description": "半角字符转换为全角字符(暂时仅限于逗号和句号), ', ' or ',' -> '，'",
+                     "actions": [
+                        {
+                           "type": "replace",
+                           "expression": ", ?",
+                           "param1": "，"
+                        },
+                        {
+                           "type": "replace",
+                           "expression": "(?<!(\\n|^)\\s*\\d{1,5})\\. ?",
+                           "param1": "。"
+                        }
+                     ]
+                  },
+                  {
+                     "enable": true,
+                     "label": "set one space after half corner",
+                     "description": "半角字符后面设置为一个空格, 除了行结尾之外 ===> ', ' or ',' -> '，'",
+                     "actions": [
+                        {
+                           "type": "replace",
+                           "expression": ", *(?=\\S)",
+                           "param1": ", "
+                        },
+                        {
+                           "type": "replace",
+                           "expression": "(?<!(\\n|^)\\s*\\d{1,5})\\. *(?=\\S)",
+                           "param1": ". "
+                        }
+                     ]
+                  },
+                  {
+                     "enable": true,
+                     "label": "clear space after half corner",
+                     "description": "半角字符后面清除空格, 除了行开头的行标记 ===> ', ' or ',' -> '，'",
+                     "actions": [
+                        {
+                           "type": "replace",
+                           "expression": ", *",
+                           "param1": ","
+                        },
+                        {
+                           "type": "replace",
+                           "expression": "(?<!(\\n|^)\\s*\\d{1,4})\\. *",
+                           "param1": "."
+                        }
+                     ]
+                  },
+                  {
+                     "enable": true,
+                     "label": "left one space between en and cn",
+                     "description": "中英文中间设置空格",
+                     "actions": [
+                        {
+                           "type": "replace",
+                           "expression": "((?<=[\u4e00-\u9fa5])\\s*\\b)|(\\b\\s*(?=[\u4e00-\u9fa5]))",
+                           "param1": " "
+                        }
+                     ]
+                  },
+                  {
+                     "enable": true,
+                     "label": "insert backquote between en and cn",
+                     "description": "中文之间的单个英文前后添加空格和反引号 '`'",
+                     "actions": [
+                        {
+                           "type": "replace",
+                           "expression": "(?<=[\u4e00-\u9fa5])\\s*(\\w+)\\s*(?=[\u4e00-\u9fa5])",
+                           "param1": " `$1` "
                         }
                      ]
                   }
