@@ -44,6 +44,7 @@ export function activate(context: vscode.ExtensionContext) {
       let formatRowPrefix:String|undefined = setting.get('formatRowPrefix', "　　");
 		// 替换空换行符 
 		let translated = sele.replace(/\s*?\n\s*(?=\S)/g, '\r\n' + formatRowPrefix);
+	   translated = sele.replace(/\n[#\s]+(?=第.{1,4}章)/g, '\n\r\n\r\n');
 		
 		textEditor.edit(edit =>
 			edit.replace(selection, translated)
@@ -140,7 +141,96 @@ export function activate(context: vscode.ExtensionContext) {
             });
       })
    );
+
+
+   // 定制字符串处理规则 "`"
+   context.subscriptions.push(
+      // const moveFileController = new controller_1.MoveFileController(context);
+      vscode.commands.registerCommand('myTxtTool.toggleFileName', async (textEditor, edit) => {
+         const workspaceEdit = new vscode.WorkspaceEdit();
+         let sourcePath = await getSourcePathForNonTextFile();
+         let TargetPath:vscode.Uri;
+         if (sourcePath.endsWith('.md')) {
+            TargetPath = toUri(sourcePath.substring(0, sourcePath.length - 3) + '.txt');
+         } else {
+            TargetPath = toUri(sourcePath.substring(0, sourcePath.length - 4) + '.md');
+         }
+         let SourcePath = toUri(sourcePath);
+         workspaceEdit.renameFile(SourcePath, TargetPath, { overwrite: false });
+         await workspace.applyEdit(workspaceEdit);
+      })
+   );
+
+
+   // 定制字符串处理规则 "`"
+   context.subscriptions.push(
+      vscode.commands.registerTextEditorCommand('myTxtTool.fileSelect', async (textEditor, edit) => {
+         
+         const workspaceEdit = new vscode.WorkspaceEdit();
+         let sourcePath = await getSourcePathForNonTextFile();
+
+         let setting:vscode.WorkspaceConfiguration = workspace.getConfiguration('mytexttool');
+         let costomArr:Array<string> = setting.get('fileTags', []);
+
+         let sourceSelectArr: string[] = sourcePath.match(/(?<=[\$#])[^\.\$#]+/g) || [];
+
+         let quickPicItemArr: Array<vscode.QuickPickItem> = costomArr.map(it => {
+            let qp: vscode.QuickPickItem = {
+               label: it,
+               picked: sourceSelectArr.indexOf(it) >= 0
+            }
+            return qp;
+         });
+
+         vscode.window.showQuickPick(quickPicItemArr, {canPickMany: true})
+            .then(function(selectArr: vscode.QuickPickItem[] | undefined) {
+               if (selectArr) {
+                  let ext = '';
+                  if (sourcePath.endsWith('.md')) {
+                     ext = '.md';
+                  } else {
+                     ext = '.txt';
+                  }
+                  let fileName = sourcePath.replace(/\$[^\.]+/g, '');
+                  if (fileName.lastIndexOf('.') >= 0) {
+                     fileName = fileName.substring(0, fileName.lastIndexOf('.'))
+                  }
+                  let selectString = selectArr.map(it => it.label).join('#');
+                  let targetPath;
+                  if (selectString) {
+                     targetPath = fileName + '$' + selectString + ext;
+                  } else {
+                     targetPath = fileName + ext;
+                  }
+                  if (targetPath !== sourcePath) {
+                     let SourcePath = toUri(sourcePath);
+                     let TargetPath = toUri(targetPath);
+                     workspaceEdit.renameFile(SourcePath, TargetPath, { overwrite: false });
+                     workspace.applyEdit(workspaceEdit);
+                  }
+               }
+            });
+         
+      })
+   );
+
+
+
 }
+
+function toUri(uriOrString: any) {
+   return uriOrString instanceof vscode.Uri ? uriOrString : vscode.Uri.file(uriOrString);
+}
+
+async function getSourcePathForNonTextFile() {
+   const originalClipboardData = await vscode.env.clipboard.readText();
+   await vscode.env.clipboard.writeText("");
+   await vscode.commands.executeCommand("workbench.action.files.copyPathOfActiveFile");
+   const postAPICallClipboardData = await vscode.env.clipboard.readText();
+   await vscode.env.clipboard.writeText(originalClipboardData);
+   return postAPICallClipboardData;
+}
+
 
 interface TxtAction {
    // 是否激活

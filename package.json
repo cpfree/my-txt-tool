@@ -2,7 +2,7 @@
    "name": "my-txt-tool",
    "displayName": "my-txt-tool",
    "description": "Used for various processing of text",
-   "version": "0.2.1",
+   "version": "0.2.2",
    "publisher": "cpf",
    "repository": "git@github.com:cpfree/my-txt-tool.git",
    "engines": {
@@ -16,7 +16,9 @@
       "onCommand:myTxtTool.wrapLine",
       "onCommand:myTxtTool.suitRow",
       "onCommand:myTxtTool.formatAll",
-      "onCommand:myTxtTool.customTxtActions"
+      "onCommand:myTxtTool.customTxtActions",
+      "onCommand:myTxtTool.toggleFileName",
+      "onCommand:myTxtTool.fileSelect"
    ],
    "main": "./out/extension.js",
    "contributes": {
@@ -40,6 +42,14 @@
          {
             "command": "myTxtTool.suitRow",
             "title": "txt-tool: suit row"
+         },
+         {
+            "command": "myTxtTool.toggleFileName",
+            "title": "txt-tool: toggleFileName"
+         },
+         {
+            "command": "myTxtTool.fileSelect",
+            "title": "txt-tool: fileSelect"
          }
       ],
 		"submenus": [
@@ -74,6 +84,20 @@
             {
                "when": "resourceExtname == .txt && config.mytexttool.enableSuitRow",
                "command": "myTxtTool.suitRow",
+               "group": "myTxtToolGroup"
+            }
+         ],
+         "explorer/context":  [
+            {
+               "when": "resourceExtname == .md || resourceExtname == .txt",
+               "alt": "markdown.showPreviewToSide",
+               "command": "myTxtTool.toggleFileName",
+               "group": "myTxtToolGroup"
+            },
+            {
+               "when": "resourceExtname == .md || resourceExtname == .txt",
+               "alt": "markdown.showPreviewToSide",
+               "command": "myTxtTool.fileSelect",
                "group": "myTxtToolGroup"
             }
          ],
@@ -147,6 +171,14 @@
                ],
                "default": "\r\n   ",
                "description": "%config.formatRowPrefix.description%"
+            },
+            "mytexttool.fileTags": {
+               "type": "array",
+               "items": {
+                  "type": "string"
+               },
+               "default": ["一级", "二级", "三级"],
+               "description": "文件标签配置"
             },
             "mytexttool.actions": {
                "type": "array",
